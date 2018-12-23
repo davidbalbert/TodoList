@@ -16,9 +16,14 @@ struct Todo {
 
 struct State : StateType {
     var todos = [Todo]()
+    var newTodo = ""
 }
 
 struct AddTodo : Action {
+    let text: String
+}
+
+struct UpdateNewTodo : Action {
     let text: String
 }
 
@@ -28,6 +33,9 @@ func reducer(action: Action, state: State?) -> State {
     switch action {
     case let action as AddTodo:
         state.todos.append(Todo(text: action.text, done: false))
+        state.newTodo = ""
+    case let action as UpdateNewTodo:
+        state.newTodo = action.text
     default:
         break
     }

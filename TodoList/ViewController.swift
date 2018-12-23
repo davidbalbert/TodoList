@@ -9,11 +9,12 @@
 import Cocoa
 import ReSwift
 
-class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NSTableViewDataSource {
+class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate {
     typealias StoreSubscriberStateType = State
 
     @IBOutlet var textField: NSTextField!
     @IBOutlet var tableView: NSTableView!
+    @IBOutlet var addButton: NSButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,8 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
 
     func newState(state: State) {
         tableView.reloadData()
+        addButton.isEnabled = !state.newTodo.isEmpty
+        textField.stringValue = state.newTodo
     }
 
     override var representedObject: Any? {
@@ -63,7 +66,13 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
 
     @IBAction func addButtonClicked(_ sender: NSButton) {
         mainStore.dispatch(
-            AddTodo(text: textField.stringValue)
+            AddTodo(text: mainStore.state.newTodo)
+        )
+    }
+
+    func controlTextDidChange(_ obj: Notification) {
+        mainStore.dispatch(
+            UpdateNewTodo(text: (obj.object as! NSTextField).stringValue)
         )
     }
 }

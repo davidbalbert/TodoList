@@ -789,6 +789,9 @@
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="k3V-Gm-Ay5"/>
+                                </connections>
                             </textField>
                             <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pzT-mL-iPz">
                                 <rect key="frame" x="401" y="14" width="65" height="32"/>
@@ -813,9 +816,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="pzT-mL-iPz" id="5IY-mV-p0O"/>
                         <outlet property="tableView" destination="E4S-Jj-WPL" id="YVj-ax-P3P"/>
                         <outlet property="textField" destination="Xcv-Nf-HV0" id="oHy-Yy-qhJ"/>
-                        <outlet property="todoTable" destination="E4S-Jj-WPL" id="NXO-zA-BKd"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
