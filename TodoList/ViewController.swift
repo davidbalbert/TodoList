@@ -26,6 +26,7 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
         super.viewDidAppear()
 
         mainStore.subscribe(self)
+        view.window?.makeFirstResponder(textField)
     }
 
     override func viewWillDisappear() {
