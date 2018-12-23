@@ -56,18 +56,34 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
             return nil
         }
 
-        if let cell = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: nil) as? NSTableCellView {
-            cell.textField?.stringValue = mainStore.state.todos[row].text
+        let todo = mainStore.state.todos[row]
 
-            return cell
+        switch tableColumn!.identifier.rawValue {
+        case "DoneColumn":
+            let view = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: nil) as! CheckboxTableCellView
+            view.checkbox.state = todo.done ? .on : .off
+            return view
+        case "TitleColumn":
+            let view = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: nil) as! NSTableCellView
+            view.textField?.stringValue = todo.text
+            return view
+        default:
+            NSLog("Unknown column identifier \(tableColumn!.identifier.rawValue)")
+            return nil
         }
-        
-        return nil
     }
 
     @IBAction func addButtonClicked(_ sender: NSButton) {
         mainStore.dispatch(
             AddTodo(text: mainStore.state.newTodo)
+        )
+    }
+
+    @IBAction func doneButtonClicked(_ sender: NSButton) {
+        let row = tableView.row(for: sender)
+
+        mainStore.dispatch(
+            ToggleDone(todo: row)
         )
     }
 
