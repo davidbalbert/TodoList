@@ -8,6 +8,12 @@
 
 import Cocoa
 
+var state = State(todos: [
+    Todo(text: "Thing one", done: false),
+    Todo(text: "Thing two", done: false),
+    Todo(text: "Thing three", done: false),
+])
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 

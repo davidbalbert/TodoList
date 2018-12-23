@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +22,24 @@ class ViewController: NSViewController {
         }
     }
 
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return state.todos.count
+    }
 
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        NSLog("identifier: \(tableColumn!.identifier.rawValue)")
+
+        guard row < state.todos.count else {
+            return nil
+        }
+
+        if let cell = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: nil) as? NSTableCellView {
+            cell.textField?.stringValue = state.todos[row].text
+
+            return cell
+        }
+        
+        return nil
+    }
 }
 
