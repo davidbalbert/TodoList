@@ -793,8 +793,8 @@
                                     <outlet property="delegate" destination="XfG-lQ-9wD" id="k3V-Gm-Ay5"/>
                                 </connections>
                             </textField>
-                            <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pzT-mL-iPz">
-                                <rect key="frame" x="401" y="14" width="65" height="32"/>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pzT-mL-iPz">
+                                <rect key="frame" x="401" y="13" width="65" height="32"/>
                                 <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AjA-Hd-UP4">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -812,6 +812,7 @@
                             <constraint firstItem="Xcv-Nf-HV0" firstAttribute="top" secondItem="xRO-vJ-ZKD" secondAttribute="bottom" constant="20" id="RNa-UN-NgV"/>
                             <constraint firstAttribute="bottom" secondItem="Xcv-Nf-HV0" secondAttribute="bottom" constant="20" symbolic="YES" id="WkM-AT-Q2n"/>
                             <constraint firstItem="xRO-vJ-ZKD" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="hx4-Ms-Bja"/>
+                            <constraint firstAttribute="bottom" secondItem="pzT-mL-iPz" secondAttribute="bottom" constant="20" symbolic="YES" id="nVb-bv-VeZ"/>
                             <constraint firstItem="pzT-mL-iPz" firstAttribute="leading" secondItem="Xcv-Nf-HV0" secondAttribute="trailing" constant="8" symbolic="YES" id="obM-gH-aUU"/>
                         </constraints>
                     </view>
