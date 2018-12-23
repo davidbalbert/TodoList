@@ -7,13 +7,34 @@
 //
 
 import Cocoa
+import ReSwift
 
-class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
+class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NSTableViewDataSource {
+    typealias StoreSubscriberStateType = State
+
+    @IBOutlet var textField: NSTextField!
+    @IBOutlet var tableView: NSTableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+
+    override func viewDidAppear() {
+        super.viewDidAppear()
+
+        mainStore.subscribe(self)
+    }
+
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+
+        mainStore.unsubscribe(self)
+    }
+
+    func newState(state: State) {
+        tableView.reloadData()
     }
 
     override var representedObject: Any? {
@@ -23,21 +44,27 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     }
 
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return state.todos.count
+        return mainStore.state.todos.count
     }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard row < state.todos.count else {
+        guard row < mainStore.state.todos.count else {
             return nil
         }
 
         if let cell = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: nil) as? NSTableCellView {
-            cell.textField?.stringValue = state.todos[row].text
+            cell.textField?.stringValue = mainStore.state.todos[row].text
 
             return cell
         }
         
         return nil
+    }
+
+    @IBAction func addButtonClicked(_ sender: NSButton) {
+        mainStore.dispatch(
+            AddTodo(text: textField.stringValue)
+        )
     }
 }
 

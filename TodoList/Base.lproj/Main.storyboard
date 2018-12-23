@@ -796,6 +796,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="addButtonClicked:" target="XfG-lQ-9wD" id="7aC-52-I8D"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -809,6 +812,11 @@
                             <constraint firstItem="pzT-mL-iPz" firstAttribute="leading" secondItem="Xcv-Nf-HV0" secondAttribute="trailing" constant="8" symbolic="YES" id="obM-gH-aUU"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="E4S-Jj-WPL" id="YVj-ax-P3P"/>
+                        <outlet property="textField" destination="Xcv-Nf-HV0" id="oHy-Yy-qhJ"/>
+                        <outlet property="todoTable" destination="E4S-Jj-WPL" id="NXO-zA-BKd"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

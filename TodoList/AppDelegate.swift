@@ -7,12 +7,12 @@
 //
 
 import Cocoa
+import ReSwift
 
-var state = State(todos: [
-    Todo(text: "Thing one", done: false),
-    Todo(text: "Thing two", done: false),
-    Todo(text: "Thing three", done: false),
-])
+let mainStore = Store<State>(
+    reducer: reducer,
+    state: nil
+)
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
