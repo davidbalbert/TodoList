@@ -27,8 +27,6 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        NSLog("identifier: \(tableColumn!.identifier.rawValue)")
-
         guard row < state.todos.count else {
             return nil
         }
