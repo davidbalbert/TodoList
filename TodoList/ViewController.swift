@@ -15,6 +15,7 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
     @IBOutlet var textField: NSTextField!
     @IBOutlet var tableView: NSTableView!
     @IBOutlet var addButton: NSButton!
+    @IBOutlet var filterButtons: NSSegmentedControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,7 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
         tableView.reloadData()
         addButton.isEnabled = !state.newTodo.isEmpty
         textField.stringValue = state.newTodo
+        filterButtons.setSelected(true, forSegment: state.filter.rawValue)
 
         if state.selectedRow >= 0 {
             tableView.selectRowIndexes([state.selectedRow], byExtendingSelection: false)
@@ -54,15 +56,15 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
     }
 
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return mainStore.state.todos.count
+        return mainStore.state.filteredTodos.count
     }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard row < mainStore.state.todos.count else {
+        guard row < mainStore.state.filteredTodos.count else {
             return nil
         }
 
-        let todo = mainStore.state.todos[row]
+        let todo = mainStore.state.filteredTodos[row]
 
         switch tableColumn!.identifier.rawValue {
         case "DoneColumn":
@@ -88,7 +90,7 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
     }
 
     func id(forRow row: Int) -> UUID {
-        return mainStore.state.todos[row].id
+        return mainStore.state.filteredTodos[row].id
     }
 
     func deleteKeyPressed(_ tableView: TodoTableView, forRow row: Int) {
@@ -130,6 +132,12 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
 
         mainStore.dispatch(
             UpdateSelection(row: row)
+        )
+    }
+
+    @IBAction func filterChanged(_ sender: NSSegmentedControl) {
+        mainStore.dispatch(
+            UpdateFilter(filter: Filter(rawValue: sender.selectedSegment)!)
         )
     }
 }

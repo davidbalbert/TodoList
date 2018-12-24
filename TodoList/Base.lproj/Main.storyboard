@@ -706,17 +706,58 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="395"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AZz-yb-g4a">
+                                <rect key="frame" x="125" y="352" width="231" height="24"/>
+                                <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="0mO-Ln-J3a">
+                                    <font key="font" metaFont="system"/>
+                                    <segments>
+                                        <segment label="All" selected="YES"/>
+                                        <segment label="Incomplete" tag="1"/>
+                                        <segment label="Completed"/>
+                                    </segments>
+                                </segmentedCell>
+                                <connections>
+                                    <action selector="filterChanged:" target="XfG-lQ-9wD" id="QO9-SO-Vzr"/>
+                                </connections>
+                            </segmentedControl>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xcv-Nf-HV0">
+                                <rect key="frame" x="20" y="20" width="379" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="riG-XU-9Q2"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="ytp-4M-VhO">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="k3V-Gm-Ay5"/>
+                                </connections>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pzT-mL-iPz">
+                                <rect key="frame" x="401" y="13" width="65" height="32"/>
+                                <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AjA-Hd-UP4">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="addButtonClicked:" target="XfG-lQ-9wD" id="7aC-52-I8D"/>
+                                </connections>
+                            </button>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRO-vJ-ZKD">
-                                <rect key="frame" x="0.0" y="62" width="480" height="238"/>
+                                <rect key="frame" x="0.0" y="62" width="480" height="272"/>
                                 <clipView key="contentView" id="CYl-aa-BeR">
-                                    <rect key="frame" x="1" y="0.0" width="478" height="237"/>
+                                    <rect key="frame" x="1" y="0.0" width="478" height="271"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="bIH-Kf-mSZ" viewBased="YES" id="E4S-Jj-WPL" customClass="TodoTableView" customModule="TodoList" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="478" height="212"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="478" height="246"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -817,55 +858,31 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xcv-Nf-HV0">
-                                <rect key="frame" x="20" y="20" width="379" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="riG-XU-9Q2"/>
-                                </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="ytp-4M-VhO">
-                                    <font key="font" usesAppearanceFont="YES"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="k3V-Gm-Ay5"/>
-                                </connections>
-                            </textField>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pzT-mL-iPz">
-                                <rect key="frame" x="401" y="13" width="65" height="32"/>
-                                <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AjA-Hd-UP4">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                    <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="addButtonClicked:" target="XfG-lQ-9wD" id="7aC-52-I8D"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="AZz-yb-g4a" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="47w-n2-K8L"/>
+                            <constraint firstItem="AZz-yb-g4a" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="DG8-aR-fm6"/>
                             <constraint firstAttribute="trailing" secondItem="xRO-vJ-ZKD" secondAttribute="trailing" id="FPU-3I-1SF"/>
                             <constraint firstItem="Xcv-Nf-HV0" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="Gbv-pe-g8g"/>
                             <constraint firstAttribute="trailing" secondItem="pzT-mL-iPz" secondAttribute="trailing" constant="20" symbolic="YES" id="K2e-W5-HVA"/>
                             <constraint firstItem="xRO-vJ-ZKD" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="MHT-gS-v1T"/>
                             <constraint firstItem="Xcv-Nf-HV0" firstAttribute="top" secondItem="xRO-vJ-ZKD" secondAttribute="bottom" constant="20" id="RNa-UN-NgV"/>
                             <constraint firstAttribute="bottom" secondItem="Xcv-Nf-HV0" secondAttribute="bottom" constant="20" symbolic="YES" id="WkM-AT-Q2n"/>
-                            <constraint firstItem="xRO-vJ-ZKD" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="hx4-Ms-Bja"/>
                             <constraint firstAttribute="bottom" secondItem="pzT-mL-iPz" secondAttribute="bottom" constant="20" symbolic="YES" id="nVb-bv-VeZ"/>
                             <constraint firstItem="pzT-mL-iPz" firstAttribute="leading" secondItem="Xcv-Nf-HV0" secondAttribute="trailing" constant="8" symbolic="YES" id="obM-gH-aUU"/>
+                            <constraint firstItem="xRO-vJ-ZKD" firstAttribute="top" secondItem="AZz-yb-g4a" secondAttribute="bottom" constant="20" id="ryq-8U-1am"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addButton" destination="pzT-mL-iPz" id="5IY-mV-p0O"/>
+                        <outlet property="filterButtons" destination="AZz-yb-g4a" id="AGc-sL-CUw"/>
                         <outlet property="tableView" destination="E4S-Jj-WPL" id="YVj-ax-P3P"/>
                         <outlet property="textField" destination="Xcv-Nf-HV0" id="oHy-Yy-qhJ"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="702.5"/>
         </scene>
     </scenes>
 </document>

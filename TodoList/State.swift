@@ -19,10 +19,28 @@ struct Todo {
     }
 }
 
+enum Filter: Int {
+    case all
+    case incomplete
+    case completed
+}
+
 struct State : StateType {
     var todos = [Todo]()
     var newTodo = ""
     var selectedRow = -1
+    var filter = Filter.all
+
+    var filteredTodos: [Todo] {
+        switch filter {
+        case .all:
+            return todos
+        case .incomplete:
+            return todos.filter { !$0.done }
+        case .completed:
+            return todos.filter { $0.done }
+        }
+    }
 }
 
 
@@ -46,6 +64,10 @@ struct UpdateSelection : Action {
     let row: Int
 }
 
+struct UpdateFilter : Action {
+    let filter: Filter
+}
+
 func reducer(action: Action, state: State?) -> State {
     var state = state ?? State()
 
@@ -65,11 +87,13 @@ func reducer(action: Action, state: State?) -> State {
     case let action as RemoveTodo:
         state.todos = state.todos.filter { $0.id != action.id }
 
-        if state.selectedRow >= state.todos.count {
-            state.selectedRow = state.todos.count - 1
+        if state.selectedRow >= state.filteredTodos.count {
+            state.selectedRow = state.filteredTodos.count - 1
         }
     case let action as UpdateSelection:
         state.selectedRow = action.row
+    case let action as UpdateFilter:
+        state.filter = action.filter
     default:
         break
     }
