@@ -82,9 +82,11 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
     }
 
     func deleteKeyPressed(_ tableView: TodoTableView, forRow row: Int) {
-        mainStore.dispatch(
-            RemoveTodo(todo: row)
-        )
+        if row >= 0 {
+            mainStore.dispatch(
+                RemoveTodo(todo: row)
+            )
+        }
     }
 
     @IBAction func addButtonClicked(_ sender: NSButton) {
