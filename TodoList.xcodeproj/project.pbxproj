@@ -16,6 +16,7 @@
 		63A7E4CE21D0085E00BCBE9C /* ReSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 63A7E4CC21D0085E00BCBE9C /* ReSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		63A7E4D221D0088C00BCBE9C /* ReSwift.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63A7E4D121D0088C00BCBE9C /* ReSwift.framework.dSYM */; };
 		63D3CE4C21D0250A0071A831 /* CheckboxTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3CE4B21D0250A0071A831 /* CheckboxTableCellView.swift */; };
+		63D3CE4E21D18C030071A831 /* TodoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3CE4D21D18C030071A831 /* TodoTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +55,7 @@
 		63A7E4CC21D0085E00BCBE9C /* ReSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwift.framework; path = Carthage/Build/Mac/ReSwift.framework; sourceTree = "<group>"; };
 		63A7E4D121D0088C00BCBE9C /* ReSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ReSwift.framework.dSYM; path = Carthage/Build/Mac/ReSwift.framework.dSYM; sourceTree = "<group>"; };
 		63D3CE4B21D0250A0071A831 /* CheckboxTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxTableCellView.swift; sourceTree = "<group>"; };
+		63D3CE4D21D18C030071A831 /* TodoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				63A7E4C421CFF4BA00BCBE9C /* State.swift */,
 				63D3CE4B21D0250A0071A831 /* CheckboxTableCellView.swift */,
 				63A7E4B621CFF0B400BCBE9C /* ViewController.swift */,
+				63D3CE4D21D18C030071A831 /* TodoTableView.swift */,
 				63A7E4B821CFF0B500BCBE9C /* Assets.xcassets */,
 				63A7E4BA21CFF0B500BCBE9C /* Main.storyboard */,
 				63A7E4BD21CFF0B500BCBE9C /* Info.plist */,
@@ -179,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63D3CE4C21D0250A0071A831 /* CheckboxTableCellView.swift in Sources */,
+				63D3CE4E21D18C030071A831 /* TodoTableView.swift in Sources */,
 				63A7E4B721CFF0B400BCBE9C /* ViewController.swift in Sources */,
 				63A7E4B521CFF0B400BCBE9C /* AppDelegate.swift in Sources */,
 				63A7E4C521CFF4BA00BCBE9C /* State.swift in Sources */,

@@ -24,6 +24,10 @@ struct AddTodo : Action {
     let text: String
 }
 
+struct RemoveTodo : Action {
+    let todo: Int
+}
+
 struct UpdateNewTodo : Action {
     let text: String
 }
@@ -31,7 +35,6 @@ struct UpdateNewTodo : Action {
 struct ToggleDone : Action {
     let todo: Int
 }
-
 
 func reducer(action: Action, state: State?) -> State {
     var state = state ?? State()
@@ -44,6 +47,10 @@ func reducer(action: Action, state: State?) -> State {
         state.newTodo = action.text
     case let action as ToggleDone:
         state.todos[action.todo].done = !state.todos[action.todo].done
+    case let action as RemoveTodo:
+        let todo = action.todo
+
+        state.todos = Array(state.todos[..<todo]) + Array(state.todos[(todo+1)...])
     default:
         break
     }

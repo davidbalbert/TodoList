@@ -9,7 +9,7 @@
 import Cocoa
 import ReSwift
 
-class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate {
+class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate, TodoTableViewDelegate {
     typealias StoreSubscriberStateType = State
 
     @IBOutlet var textField: NSTextField!
@@ -79,6 +79,12 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
             NSLog("Unknown column identifier \(tableColumn!.identifier.rawValue)")
             return nil
         }
+    }
+
+    func deleteKeyPressed(_ tableView: TodoTableView, forRow row: Int) {
+        mainStore.dispatch(
+            RemoveTodo(todo: row)
+        )
     }
 
     @IBAction func addButtonClicked(_ sender: NSButton) {
