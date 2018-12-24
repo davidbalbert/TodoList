@@ -22,6 +22,7 @@ struct Todo {
 struct State : StateType {
     var todos = [Todo]()
     var newTodo = ""
+    var selectedRow = -1
 }
 
 
@@ -39,6 +40,10 @@ struct UpdateNewTodo : Action {
 
 struct ToggleDone : Action {
     let id: UUID
+}
+
+struct UpdateSelection : Action {
+    let row: Int
 }
 
 func reducer(action: Action, state: State?) -> State {
@@ -59,6 +64,12 @@ func reducer(action: Action, state: State?) -> State {
         state.todos[idx].done = !state.todos[idx].done
     case let action as RemoveTodo:
         state.todos = state.todos.filter { $0.id != action.id }
+
+        if state.selectedRow >= state.todos.count {
+            state.selectedRow = state.todos.count - 1
+        }
+    case let action as UpdateSelection:
+        state.selectedRow = action.row
     default:
         break
     }

@@ -39,6 +39,12 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
         tableView.reloadData()
         addButton.isEnabled = !state.newTodo.isEmpty
         textField.stringValue = state.newTodo
+
+        if state.selectedRow >= 0 {
+            tableView.selectRowIndexes([state.selectedRow], byExtendingSelection: false)
+        } else {
+            tableView.selectRowIndexes([], byExtendingSelection: false)
+        }
     }
 
     override var representedObject: Any? {
@@ -93,13 +99,6 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
         mainStore.dispatch(
             RemoveTodo(id: id(forRow: row))
         )
-
-        var nextSelection = row
-        if nextSelection >= mainStore.state.todos.count {
-            nextSelection = mainStore.state.todos.count - 1
-        }
-
-        tableView.selectRowIndexes([nextSelection], byExtendingSelection: false)
     }
 
     @IBAction func addButtonClicked(_ sender: NSButton) {
@@ -116,9 +115,21 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
         )
     }
 
-    func controlTextDidChange(_ obj: Notification) {
+    func controlTextDidChange(_ notification: Notification) {
         mainStore.dispatch(
-            UpdateNewTodo(text: (obj.object as! NSTextField).stringValue)
+            UpdateNewTodo(text: (notification.object as! NSTextField).stringValue)
+        )
+    }
+
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        let row = tableView.selectedRow
+
+        if row == mainStore.state.selectedRow {
+            return
+        }
+
+        mainStore.dispatch(
+            UpdateSelection(row: row)
         )
     }
 }
