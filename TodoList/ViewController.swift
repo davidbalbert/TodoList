@@ -81,10 +81,14 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
         }
     }
 
+    func id(forRow row: Int) -> UUID {
+        return mainStore.state.todos[row].id
+    }
+
     func deleteKeyPressed(_ tableView: TodoTableView, forRow row: Int) {
         if row >= 0 {
             mainStore.dispatch(
-                RemoveTodo(todo: row)
+                RemoveTodo(id: id(forRow: row))
             )
         }
     }
@@ -99,7 +103,7 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
         let row = tableView.row(for: sender)
 
         mainStore.dispatch(
-            ToggleDone(todo: row)
+            ToggleDone(id: id(forRow: row))
         )
     }
 

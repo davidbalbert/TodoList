@@ -10,8 +10,13 @@ import Foundation
 import ReSwift
 
 struct Todo {
-    var text = ""
+    var text: String
+    var id = UUID()
     var done = false
+
+    init(text: String) {
+        self.text = text
+    }
 }
 
 struct State : StateType {
@@ -25,7 +30,7 @@ struct AddTodo : Action {
 }
 
 struct RemoveTodo : Action {
-    let todo: Int
+    let id: UUID
 }
 
 struct UpdateNewTodo : Action {
@@ -33,7 +38,7 @@ struct UpdateNewTodo : Action {
 }
 
 struct ToggleDone : Action {
-    let todo: Int
+    let id: UUID
 }
 
 func reducer(action: Action, state: State?) -> State {
@@ -41,16 +46,19 @@ func reducer(action: Action, state: State?) -> State {
 
     switch action {
     case let action as AddTodo:
-        state.todos.append(Todo(text: action.text, done: false))
+        state.todos.append(Todo(text: action.text))
         state.newTodo = ""
     case let action as UpdateNewTodo:
         state.newTodo = action.text
     case let action as ToggleDone:
-        state.todos[action.todo].done = !state.todos[action.todo].done
-    case let action as RemoveTodo:
-        let todo = action.todo
+        guard let idx = state.todos.index(where: { $0.id == action.id }) else {
+            NSLog("Can't find todo with id \(action.id)")
+            break
+        }
 
-        state.todos = Array(state.todos[..<todo]) + Array(state.todos[(todo+1)...])
+        state.todos[idx].done = !state.todos[idx].done
+    case let action as RemoveTodo:
+        state.todos = state.todos.filter { $0.id != action.id }
     default:
         break
     }
