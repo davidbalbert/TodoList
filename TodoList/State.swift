@@ -35,6 +35,10 @@ struct State : StateType {
         return todos.filter { !$0.done }
     }
 
+    var finishedTodos: [Todo] {
+        return todos.filter { $0.done }
+    }
+
     var filteredTodos: [Todo] {
         switch filter {
         case .all:
@@ -42,7 +46,7 @@ struct State : StateType {
         case .incomplete:
             return pendingTodos
         case .completed:
-            return todos.filter { $0.done }
+            return finishedTodos
         }
     }
 }
@@ -72,6 +76,8 @@ struct UpdateFilter : Action {
     let filter: Filter
 }
 
+struct ClearCompleted : Action {}
+
 func reducer(action: Action, state: State?) -> State {
     var state = state ?? State()
 
@@ -98,6 +104,8 @@ func reducer(action: Action, state: State?) -> State {
         state.selectedRow = action.row
     case let action as UpdateFilter:
         state.filter = action.filter
+    case is ClearCompleted:
+        state.todos = state.pendingTodos
     default:
         break
     }

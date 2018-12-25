@@ -17,6 +17,7 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
     @IBOutlet var addButton: NSButton!
     @IBOutlet var filterButtons: NSSegmentedControl!
     @IBOutlet var countLabel: NSTextField!
+    @IBOutlet var clearButton: NSButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +52,7 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
         textField.stringValue = state.newTodo
         filterButtons.setSelected(true, forSegment: state.filter.rawValue)
         countLabel.stringValue = "\(pluralize(state.pendingTodos.count, "item")) left"
+        clearButton.isEnabled = state.finishedTodos.count > 0
 
         if state.selectedRow >= 0 {
             tableView.selectRowIndexes([state.selectedRow], byExtendingSelection: false)
@@ -148,6 +150,12 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
     @IBAction func filterChanged(_ sender: NSSegmentedControl) {
         mainStore.dispatch(
             UpdateFilter(filter: Filter(rawValue: sender.selectedSegment)!)
+        )
+    }
+
+    @IBAction func clearCompletedClicked(_ sender: NSButton) {
+        mainStore.dispatch(
+            ClearCompleted()
         )
     }
 }

@@ -866,6 +866,16 @@ DQ
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IRc-my-7U3">
+                                <rect key="frame" x="326" y="52" width="140" height="32"/>
+                                <buttonCell key="cell" type="push" title="Clear completed" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pYy-sf-GjM">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="clearCompletedClicked:" target="XfG-lQ-9wD" id="aud-9T-QOw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="AZz-yb-g4a" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="47w-n2-K8L"/>
@@ -878,13 +888,17 @@ DQ
                             <constraint firstItem="1A7-vl-eUI" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="Oac-NB-pqn"/>
                             <constraint firstAttribute="bottom" secondItem="Xcv-Nf-HV0" secondAttribute="bottom" constant="20" symbolic="YES" id="WkM-AT-Q2n"/>
                             <constraint firstItem="1A7-vl-eUI" firstAttribute="top" secondItem="xRO-vJ-ZKD" secondAttribute="bottom" constant="8" id="YTW-j4-9J9"/>
+                            <constraint firstItem="pzT-mL-iPz" firstAttribute="top" secondItem="IRc-my-7U3" secondAttribute="bottom" constant="18" id="esJ-GV-kFq"/>
+                            <constraint firstItem="IRc-my-7U3" firstAttribute="top" secondItem="xRO-vJ-ZKD" secondAttribute="bottom" constant="7" id="j5g-nS-iBS"/>
                             <constraint firstAttribute="bottom" secondItem="pzT-mL-iPz" secondAttribute="bottom" constant="20" symbolic="YES" id="nVb-bv-VeZ"/>
                             <constraint firstItem="pzT-mL-iPz" firstAttribute="leading" secondItem="Xcv-Nf-HV0" secondAttribute="trailing" constant="8" symbolic="YES" id="obM-gH-aUU"/>
                             <constraint firstItem="xRO-vJ-ZKD" firstAttribute="top" secondItem="AZz-yb-g4a" secondAttribute="bottom" constant="20" id="ryq-8U-1am"/>
+                            <constraint firstAttribute="trailing" secondItem="IRc-my-7U3" secondAttribute="trailing" constant="20" id="zAx-Rg-gnX"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addButton" destination="pzT-mL-iPz" id="5IY-mV-p0O"/>
+                        <outlet property="clearButton" destination="IRc-my-7U3" id="G13-KC-hMc"/>
                         <outlet property="countLabel" destination="1A7-vl-eUI" id="bnM-48-ZFx"/>
                         <outlet property="filterButtons" destination="AZz-yb-g4a" id="AGc-sL-CUw"/>
                         <outlet property="tableView" destination="E4S-Jj-WPL" id="YVj-ax-P3P"/>
@@ -893,7 +907,7 @@ DQ
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="718.5"/>
+            <point key="canvasLocation" x="75" y="718"/>
         </scene>
     </scenes>
 </document>
