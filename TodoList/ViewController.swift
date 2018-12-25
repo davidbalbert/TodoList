@@ -16,6 +16,7 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
     @IBOutlet var tableView: NSTableView!
     @IBOutlet var addButton: NSButton!
     @IBOutlet var filterButtons: NSSegmentedControl!
+    @IBOutlet var countLabel: NSTextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +37,20 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
         mainStore.unsubscribe(self)
     }
 
+    func pluralize(_ count: Int, _ word: String) -> String {
+        if count == 1 {
+            return "\(count) \(word)"
+        } else {
+            return "\(count) \(word)s"
+        }
+    }
+
     func newState(state: State) {
         tableView.reloadData()
         addButton.isEnabled = !state.newTodo.isEmpty
         textField.stringValue = state.newTodo
         filterButtons.setSelected(true, forSegment: state.filter.rawValue)
+        countLabel.stringValue = "\(pluralize(state.pendingTodos.count, "item")) left"
 
         if state.selectedRow >= 0 {
             tableView.selectRowIndexes([state.selectedRow], byExtendingSelection: false)

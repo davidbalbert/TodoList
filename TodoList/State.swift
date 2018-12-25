@@ -31,12 +31,16 @@ struct State : StateType {
     var selectedRow = -1
     var filter = Filter.all
 
+    var pendingTodos: [Todo] {
+        return todos.filter { !$0.done }
+    }
+
     var filteredTodos: [Todo] {
         switch filter {
         case .all:
             return todos
         case .incomplete:
-            return todos.filter { !$0.done }
+            return pendingTodos
         case .completed:
             return todos.filter { $0.done }
         }
