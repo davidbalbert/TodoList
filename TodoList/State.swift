@@ -52,31 +52,31 @@ struct State : StateType {
 }
 
 
-struct AddTodo : Action {
+struct AddTodo: Action {
     let text: String
 }
 
-struct RemoveTodo : Action {
+struct RemoveTodo: Action {
     let id: UUID
 }
 
-struct UpdateNewTodo : Action {
+struct UpdateNewTodo: Action {
     let text: String
 }
 
-struct ToggleDone : Action {
+struct ToggleDone: Action {
     let id: UUID
 }
 
-struct UpdateSelection : Action {
+struct UpdateSelection: Action {
     let row: Int
 }
 
-struct UpdateFilter : Action {
+struct UpdateFilter: Action {
     let filter: Filter
 }
 
-struct ClearCompleted : Action {}
+struct ClearCompleted: Action {}
 
 func reducer(action: Action, state: State?) -> State {
     var state = state ?? State()

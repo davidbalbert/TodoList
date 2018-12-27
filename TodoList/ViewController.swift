@@ -86,9 +86,7 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
         case "TitleColumn":
             let view = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: nil) as! NSTableCellView
 
-
             let s = NSMutableAttributedString(string: todo.text)
-
             if todo.done {
                 s.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, s.length))
             }
