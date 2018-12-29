@@ -142,6 +142,9 @@
 							com.apple.HardenedRuntime = {
 								enabled = 1;
 							};
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
 						};
 					};
 				};

@@ -7,9 +7,59 @@
 //
 
 import Foundation
+import os
+
 import ReSwift
 
-struct Todo {
+struct Persistence {
+    private init() {}
+
+    static func saveTodos(todos: [Todo]) {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+
+        guard let data = try? encoder.encode(todos) else {
+            os_log(.error, "Can't encode Todos")
+            return
+        }
+
+        let url = fileURL()
+        let path = url.path
+
+        try! FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+
+        if !FileManager.default.fileExists(atPath: path) {
+            FileManager.default.createFile(atPath: path, contents: data)
+        } else {
+            try! data.write(to: url)
+        }
+    }
+
+    static func loadTodos() -> [Todo] {
+        guard let data = try? Data(contentsOf: fileURL()) else {
+            os_log(.debug, "Can't read todos.json")
+            return []
+        }
+
+        let decoder = JSONDecoder()
+
+        guard let todos = try? decoder.decode([Todo].self, from: data) else {
+            os_log(.error, "Can't decode contents of todos.json")
+            return []
+        }
+
+        return todos
+    }
+
+    private static func fileURL() -> URL {
+        let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let file = dir.appendingPathComponent(Bundle.main.bundleIdentifier!).appendingPathComponent("todos.json")
+
+        return file
+    }
+}
+
+struct Todo: Codable {
     var text: String
     var id = UUID()
     var done = false
@@ -82,6 +132,8 @@ func reducer(action: Action, state: State?) -> State {
     var state = state ?? State()
 
     switch action {
+    case is ReSwiftInit:
+        state.todos = Persistence.loadTodos()
     case let action as AddTodo:
         state.todos.append(Todo(text: action.text))
         state.newTodo = ""
