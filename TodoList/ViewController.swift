@@ -109,13 +109,13 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
         }
 
         mainStore.dispatch(
-            RemoveTodo(id: id(forRow: row))
+            undoable(RemoveTodo(id: id(forRow: row)), SetTodos(todos: mainStore.state.todos))
         )
     }
 
     @IBAction func addButtonClicked(_ sender: NSButton) {
         mainStore.dispatch(
-            AddTodo(text: mainStore.state.newTodo)
+            undoable(AddTodo(text: mainStore.state.newTodo), SetTodos(todos: mainStore.state.todos))
         )
     }
 
@@ -123,7 +123,7 @@ class ViewController: NSViewController, StoreSubscriber, NSTableViewDelegate, NS
         let row = tableView.row(for: sender)
 
         mainStore.dispatch(
-            ToggleDone(id: id(forRow: row))
+            undoable(ToggleDone(id: id(forRow: row)), SetTodos(todos: mainStore.state.todos))
         )
     }
 

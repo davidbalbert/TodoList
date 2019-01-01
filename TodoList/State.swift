@@ -6,10 +6,36 @@
 //  Copyright © 2018 David Albert. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 import os
 
 import ReSwift
+
+public struct Thunk<State: StateType>: Action {
+    let body: (_ dispatch: @escaping DispatchFunction, _ getState: @escaping () -> State?) -> Void
+    public init(body: @escaping (
+        _ dispatch: @escaping DispatchFunction,
+        _ getState: @escaping () -> State?) -> Void) {
+        self.body = body
+    }
+}
+
+public func createThunksMiddleware<State: StateType>() -> Middleware<State> {
+    return { dispatch, getState in
+        return { next in
+            return { action in
+                switch action {
+                case let thunk as Thunk<State>:
+                    thunk.body(dispatch, getState)
+                default:
+                    next(action)
+                }
+            }
+        }
+    }
+}
+
+
 
 struct Persistence {
     private init() {}
@@ -56,6 +82,18 @@ struct Persistence {
         let file = dir.appendingPathComponent(Bundle.main.bundleIdentifier!).appendingPathComponent("todos.json")
 
         return file
+    }
+}
+
+func undoable(_ forward: Action, _ reverse: Action) -> Thunk<State> {
+    return Thunk<State> { dispatch, getState in
+        let undoManager = NSApplication.shared.mainWindow!.undoManager!
+
+        undoManager.registerUndo(withTarget: mainStore) { mainStore in
+            dispatch(undoable(reverse, forward))
+        }
+
+        dispatch(forward)
     }
 }
 
@@ -128,6 +166,10 @@ struct UpdateFilter: Action {
 
 struct ClearCompleted: Action {}
 
+struct SetTodos: Action {
+    let todos: [Todo]
+}
+
 func reducer(action: Action, state: State?) -> State {
     var state = state ?? State()
 
@@ -158,6 +200,8 @@ func reducer(action: Action, state: State?) -> State {
         state.filter = action.filter
     case is ClearCompleted:
         state.todos = state.pendingTodos
+    case let action as SetTodos:
+        state.todos = action.todos
     default:
         break
     }

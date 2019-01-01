@@ -9,9 +9,12 @@
 import Cocoa
 import ReSwift
 
+let thunksMiddleware: Middleware<State> = createThunksMiddleware()
+
 let mainStore = Store<State>(
     reducer: reducer,
-    state: nil
+    state: nil,
+    middleware: [thunksMiddleware]
 )
 
 @NSApplicationMain
